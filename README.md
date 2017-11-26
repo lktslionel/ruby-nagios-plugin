@@ -92,5 +92,4 @@ To see the full API and core object provided by the library, go the next section
 
 Method  | Desc 
 ------- | ---- 
-Create  | The main contructor for any `Check` object.
-Create  | The main contructor for any `Check` object.
+`create (props) -> Check` | The main contructor for any `Check` object.
