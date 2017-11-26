@@ -58,7 +58,7 @@ A **Check** is our way to represent/structure a check in Nagios terms. Creating 
 
 #### Threshold 
 
-A Threshold is compose of : 
+A Threshold is compose of :
 * A numerical start point
 * A numerical end point
 * A level
@@ -66,8 +66,11 @@ A Threshold is compose of :
 
 #### Performance Data
 
-* Label
-* Value
+**Check** produce performance data that are represented in its ouput as a collection of key/value items. A Check performance data is value if it matches the following pattern : 
+```
+<label>=<value[<UOM>]>;[<warn>];[<crit>];[<min>];[<max>]
+```
+Then make sure to match this output format for your performance data.
 
 #### UOM 
 **UOM** means Unit Of Measurement. It specify the unit of measurement of the performance data. Is is written as a ruby module and provides some common units to use.
@@ -80,9 +83,6 @@ A Threshold is compose of :
 
 
 To see the full API and core object provided by the library, go the next section.
-
-
-
 
 <br>
 
