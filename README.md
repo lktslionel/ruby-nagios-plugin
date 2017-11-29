@@ -56,13 +56,13 @@ A **Check** is our way to represent/structure a check in Nagios terms. Creating 
 * PerfDatum
 
 
-#### Threshold 
+#### Threshold / Range 
 
-A Threshold is compose of :
-* A numerical start point
+A **Threshold** is compose of 3 collections of ranges; one for each level of alerts : Warning and critical.
+
+A **Range** has : 
+* A numerical start point 
 * A numerical end point
-* A level
-* A UOM (Unit Of Measurement)
 
 #### Performance Data
 
@@ -70,9 +70,9 @@ A Threshold is compose of :
 ```
 <label>=<value[<UOM>]>;[<warn>];[<crit>];[<min>];[<max>]
 ```
-Then make sure to match this output format for your performance data.
+Then, make sure to match this output format for your performance data.
 
-#### UOM 
+
 **UOM** means Unit Of Measurement. It specify the unit of measurement of the performance data. Is is written as a ruby module and provides some common units to use.
 
 * Time (s/ms/us)
@@ -88,8 +88,16 @@ To see the full API and core object provided by the library, go the next section
 
 ## API
 
-**Check** : Class
+### Check
 
-Method  | Desc 
-------- | ---- 
-`create (props) -> Check` | The main contructor for any `Check` object.
+#### Properties
+
+#### Methods
+
+##### Create : (props) -> Check
+
+###### Params
+Name  | Default | Desc 
+------- | ------ | ----- 
+`props` | `{}` | Check properties
+###### Return value
