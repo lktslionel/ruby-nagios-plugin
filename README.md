@@ -10,12 +10,12 @@ A Useful library that makes easy the creation of nagios plugin using Ruby.
 To install the library use the following command :
 
 ```
-gem instal ruby-nagios-plugin
+gem install ruby-nagios-plugin
 ```
 
 Or you can also add the following lne to your `Gemfile`:
 ```
-gem instal ruby-nagios-plugin
+gem install ruby-nagios-plugin
 ````
 
 And then execute the following command:
@@ -38,22 +38,56 @@ require 'nagios-plugin'
 
 ```
 
-The library provided as a Ruby module `Nagios::Plugin`. The module provide some useful objects and some helpers (modules, functions, ...). As objects we have : 
+The library provides as a Ruby module `Nagios::Plugin`. The module provide some useful objects and some helpers (modules, functions, ...). As objects we have : 
 
-### Objects
+## API
 
-#### Check
+### Check
 
-It's the first core object provided by the Plugin module. When your writing a plugin in Nagios, their main goal are : 
-* To execute check commands to verify whether or not a host or a service is well performing. It tells if the service/host is working or why it is failing.
-* To produce some performance data through the execution of those checks.
+It's the first core object provided by the Plugin module. Writing a plugin for Nagios requires to define a `check` whose goals ate :
+* To Verify whether or not a host or a service is well performing.
+* To produce some performance data use as metric for the check.
 
-A **Check** is our way to represent/structure a check in Nagios terms. Creating a check requires to some useful  **properties** as : 
-* Name
-* Options
-* Thresholds
-* Status
-* PerfDatum
+#### .define(props:Block)
+This class method creates an instance of a check configured with the given properties (`props`).
+
+##### Parameters
+The function requires only one paramter `props` which is a ruby block containing information needed to configure the check.
+
+Below, the listing of available keys that could by use to configure a Check.
+
+key  | Required | Type        | Default | Description
+-----|----------|----------   |---------| ---------
+name    | true     | `String`  | `nil`      | The name of your check. It is informational
+uom     | true     | `Plugin::UOM`  | `nil`      | The unit of measurement used in this check. Check the list of available UOM provided by the library
+flags   | true     | `Hash`  | {}      | Used to set documentation string for flags supported by your check. Available flags are describe in the [Nagion plugin guidelines](http://nagios-plugins.org/doc/guidelines.html#PLUGOPTIONS). If no flags are provided, the Usage text will use the default ones.
+logic   | true     | `(c:Check, opts:Hash) -> result:Hash`   | `nil`      | The code logic of your plugin. It should return a hash containing information useful to state that a check succeeded or failed.
+
+##### Returns
+
+It returns a `Check` object.
+
+##### Example
+
+Suppose we want to create a simple chech that verify if we have anougth disk space on our host. The declaration of this plugin will look like : 
+
+```ruby
+check = Nagios::Plugin::Check.define do | c |
+  c.name = "check-disk-space"
+  
+  c.uom = Plugin::UOM.PERCENT
+  
+  c.flags = {
+    w: "Warning threshold for used space (%)",
+    c: "Critical threshold for used space (%)"
+  }
+  
+  c.logic = lambda do |check, options| 
+    # Put your code logic here
+  end
+
+end
+```
 
 
 #### Threshold / Range 
