@@ -3,8 +3,6 @@
 A Useful library that makes easy the creation of nagios plugin using Ruby.
 
 
-<br>
-
 ## Install
 
 To install the library use the following command :
@@ -13,23 +11,17 @@ To install the library use the following command :
 gem install ruby-nagios-plugin
 ```
 
-Or you can also add the following lne to your `Gemfile`:
-```
-gem install ruby-nagios-plugin
-````
 
-And then execute the following command:
+## Example
 
-```
-bundle install
-```
+An example wordth more than nothing. Suppose you want to monitor a remote service which is exposing an endpoint for monitoring purpose : `api.service.com/health`.
+You're team are using Nagios as a monitoring tool and you are asked to write a check that tells the state of tis service regularly.
 
-
-<br>
-
-## Usage
-
-Using the library is as easy as installing it. Add the following import statement at the top of your ruby code:
+You are a great fan of Ruby and you don't want to use the built-in plugin check_http which doesn't meet your needs.
+You decide to write a custom Nagios plugin in Ruby and  
+ are using Nagion To monitor this se; 
+and that this service is exposing an API endpoint to check whether or not   a plugin that execute a check on a remote API.
+The API your want Using the library is as easy as installing it. Add the following import statement at the top of your ruby code:
 
 ```ruby
 require 'nagios-plugin'
@@ -47,6 +39,8 @@ The library provides as a Ruby module `Nagios::Plugin`. The module provide some 
 It's the first core object provided by the Plugin module. Writing a plugin for Nagios requires to define a `check` whose goals ate :
 * To Verify whether or not a host or a service is well performing.
 * To produce some performance data use as metric for the check.
+
+<br>
 
 #### .define(props:Block)
 This class method creates an instance of a check configured with the given properties (`props`).
@@ -135,3 +129,13 @@ Name  | Default | Desc
 ------- | ------ | ----- 
 `props` | `{}` | Check properties
 ###### Return value
+
+
+
+<br>
+
+## References
+
+* [Nagios Core Doc | Nagios Plugin API](https://assets.nagios.com/downloads/nagioscore/docs/nagioscore/3/en/pluginapi.html)
+* [Nagios Core Doc | Nagios Plugin Developer Guide](https://nagios-plugins.org/doc/guidelines.html#_ga=2.10148662.243997971.1545923831-197797091.1545923831)
+* [Doc.monitoring-fr.org | API pour les plugins Nagios](https://doc.monitoring-fr.org/3_0/html/development-pluginapi.html)
